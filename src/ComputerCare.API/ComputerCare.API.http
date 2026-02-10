@@ -1,0 +1,6 @@
+@ComputerCare.API_HostAddress = http://localhost:5069
+
+GET {{ComputerCare.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
