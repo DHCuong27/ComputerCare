@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ComputerCare.Domain\ComputerCare.Domain.csproj" />
+    <ProjectReference Include="..\ComputerCare.Shared\ComputerCare.Shared.csproj" />
   </ItemGroup>
 
 </Project>
