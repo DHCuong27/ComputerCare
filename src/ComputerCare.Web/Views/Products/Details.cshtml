@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-custom">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-microchip fa-10x text-primary-blue mb-3"></i>
+                <p class="text-muted">Hình ảnh sản phẩm</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow-custom">
+            <div class="card-body">
+                <h2>Intel Core i5-12400F</h2>
+                <div class="mb-3">
+                    <span class="badge bg-success">Còn hàng</span>
+                    <span class="badge bg-info">Chính hãng</span>
+                </div>
+                
+                <h3 class="text-primary-blue mb-4">3.690.000 ₫</h3>
+                
+                <h5>Thông số kỹ thuật</h5>
+                <ul>
+                    <li>6 nhân 12 luồng</li>
+                    <li>Tốc độ cơ bản: 2.5GHz</li>
+                    <li>Tốc độ tối đa: 4.4GHz</li>
+                    <li>Bộ nhớ đệm: 18MB</li>
+                    <li>Socket: LGA1700</li>
+                </ul>
+                
+                <div class="mb-3">
+                    <label class="form-label">Số lượng</label>
+                    <div class="input-group" style="max-width: 150px;">
+                        <button class="btn btn-outline-secondary" type="button">-</button>
+                        <input type="number" class="form-control text-center" value="1" min="1">
+                        <button class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg">
+                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+                    </button>
+                    <button class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-bolt"></i> Mua ngay
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h4><i class="fas fa-info-circle"></i> Mô tả sản phẩm</h4>
+            </div>
+            <div class="card-body">
+                <p>Intel Core i5-12400F là bộ vi xử lý thế hệ thứ 12 (Alder Lake) của Intel, được thiết kế cho các hệ thống máy tính để bàn hiệu suất cao.</p>
+                <p>Với 6 nhân và 12 luồng, chip có thể xử lý đa nhiệm mượt mà và chạy các ứng dụng nặng một cách hiệu quả.</p>
+            </div>
+        </div>
+    </div>
+</div>

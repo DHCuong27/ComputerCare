@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn</h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-custom">
+            <div class="card-body">
+                <!-- Empty Cart State -->
+                <div class="text-center py-5">
+                    <i class="fas fa-shopping-cart fa-5x text-muted mb-3"></i>
+                    <h4>Giỏ hàng trống</h4>
+                    <p class="text-muted">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-primary">
+                        <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
+                    </a>
+                </div>
+                
+                <!-- Cart Items (Hidden when empty) -->
+                <div class="d-none">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-microchip fa-2x text-primary-blue me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Intel Core i5-12400F</h6>
+                                            <small class="text-muted">SKU: CPU-I5-12400F</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>3.690.000 ₫</td>
+                                <td>
+                                    <div class="input-group" style="width: 120px;">
+                                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                                        <input type="number" class="form-control form-control-sm text-center" value="1">
+                                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                                    </div>
+                                </td>
+                                <td>3.690.000 ₫</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h5><i class="fas fa-file-invoice-dollar"></i> Tổng đơn hàng</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Tạm tính:</span>
+                    <strong>0 ₫</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Phí vận chuyển:</span>
+                    <strong>0 ₫</strong>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>Tổng cộng:</h5>
+                    <h5 class="text-primary-blue">0 ₫</h5>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg" disabled>
+                        <i class="fas fa-shopping-bag"></i> Thanh toán
+                    </button>
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-custom mt-3">
+            <div class="card-body">
+                <h6><i class="fas fa-tag"></i> Mã giảm giá</h6>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập mã">
+                    <button class="btn btn-outline-primary">Áp dụng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
