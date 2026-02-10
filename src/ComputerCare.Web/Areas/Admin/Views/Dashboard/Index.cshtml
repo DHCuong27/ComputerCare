@@ -1,0 +1,199 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="d-flex align-items-center">
+                <div class="icon bg-primary me-3">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div>
+                    <div class="stat-label">Đơn hàng hôm nay</div>
+                    <div class="stat-value">15</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="d-flex align-items-center">
+                <div class="icon bg-success me-3">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div>
+                    <div class="stat-label">Doanh thu hôm nay</div>
+                    <div class="stat-value">45.5M</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="d-flex align-items-center">
+                <div class="icon bg-warning me-3">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div>
+                    <div class="stat-label">Sản phẩm</div>
+                    <div class="stat-value">234</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="d-flex align-items-center">
+                <div class="icon bg-danger me-3">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div>
+                    <div class="stat-label">Khách hàng</div>
+                    <div class="stat-value">1,234</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-line"></i> Doanh thu theo tháng</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie"></i> Sản phẩm bán chạy</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="topProductsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h5><i class="fas fa-shopping-cart"></i> Đơn hàng gần đây</h5>
+            </div>
+            <div class="card-body">
+                <table class="table data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Ngày</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD001</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>10/02/2024</td>
+                            <td>3.690.000 ₫</td>
+                            <td><span class="badge bg-warning">Đang xử lý</span></td>
+                            <td>
+                                <button class="btn btn-view btn-sm"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-edit btn-sm"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD002</td>
+                            <td>Trần Thị B</td>
+                            <td>10/02/2024</td>
+                            <td>5.290.000 ₫</td>
+                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                            <td>
+                                <button class="btn btn-view btn-sm"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-edit btn-sm"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD003</td>
+                            <td>Lê Văn C</td>
+                            <td>10/02/2024</td>
+                            <td>8.490.000 ₫</td>
+                            <td><span class="badge bg-info">Đã giao</span></td>
+                            <td>
+                                <button class="btn btn-view btn-sm"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-edit btn-sm"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+            datasets: [{
+                label: 'Doanh thu (triệu)',
+                data: [120, 150, 180, 220, 200, 250, 280, 300, 320, 350, 400, 450],
+                borderColor: 'rgb(0, 102, 204)',
+                backgroundColor: 'rgba(0, 102, 204, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Top Products Chart
+    const topProductsCtx = document.getElementById('topProductsChart').getContext('2d');
+    new Chart(topProductsCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['CPU', 'RAM', 'SSD', 'VGA', 'Mainboard'],
+            datasets: [{
+                data: [30, 20, 25, 15, 10],
+                backgroundColor: [
+                    'rgb(0, 102, 204)',
+                    'rgb(0, 180, 216)',
+                    'rgb(40, 167, 69)',
+                    'rgb(255, 193, 7)',
+                    'rgb(220, 53, 69)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true
+        }
+    });
+</script>
+}

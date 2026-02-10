@@ -1,6 +1,7 @@
 using ComputerCare.Domain.Entities;
 using ComputerCare.Domain.Enums;
 using ComputerCare.Infrastructure.Identity;
+using ComputerCare.Shared.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,16 @@ public static class DbInitializer
 
     private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
     {
-        string[] roles = { "Admin", "Manager", "Employee", "Customer" };
+        string[] roles = 
+        { 
+            AppRoles.SuperAdmin, 
+            AppRoles.Admin, 
+            AppRoles.Manager, 
+            AppRoles.Technician, 
+            AppRoles.Sales, 
+            AppRoles.Customer, 
+            AppRoles.VipCustomer 
+        };
 
         foreach (var role in roles)
         {
@@ -50,26 +60,27 @@ public static class DbInitializer
 
     private static async Task SeedAdminUserAsync(UserManager<ApplicationUser> userManager)
     {
-        var adminEmail = "admin@computercare.com";
-        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        var superAdminEmail = "admin@computercare.com";
+        var superAdmin = await userManager.FindByEmailAsync(superAdminEmail);
 
-        if (adminUser == null)
+        if (superAdmin == null)
         {
-            adminUser = new ApplicationUser
+            superAdmin = new ApplicationUser
             {
-                UserName = adminEmail,
-                Email = adminEmail,
+                UserName = superAdminEmail,
+                Email = superAdminEmail,
                 EmailConfirmed = true,
-                FirstName = "Admin",
-                LastName = "User",
+                PhoneNumberConfirmed = true,
+                FirstName = "Super",
+                LastName = "Admin",
                 CreatedDate = DateTime.UtcNow,
                 IsActive = true
             };
 
-            var result = await userManager.CreateAsync(adminUser, "Admin@123");
+            var result = await userManager.CreateAsync(superAdmin, "Admin@123456");
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+                await userManager.AddToRoleAsync(superAdmin, AppRoles.SuperAdmin);
             }
         }
     }

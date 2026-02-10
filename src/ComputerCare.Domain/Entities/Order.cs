@@ -4,7 +4,7 @@ namespace ComputerCare.Domain.Entities;
 
 public class Order : BaseEntity
 {
-    public Guid CustomerId { get; set; }
+    public string UserId { get; set; } = string.Empty; // ApplicationUser Id
     public string OrderNumber { get; set; } = string.Empty;
     public DateTime OrderDate { get; set; }
     public decimal TotalAmount { get; set; }
@@ -15,6 +15,9 @@ public class Order : BaseEntity
     public string Notes { get; set; } = string.Empty;
 
     // Navigation properties
+    // Note: Customer entity is kept for backward compatibility
+    // but UserId now references ApplicationUser
+    public Guid CustomerId { get; set; }
     public Customer Customer { get; set; } = null!;
     public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     public Invoice? Invoice { get; set; }

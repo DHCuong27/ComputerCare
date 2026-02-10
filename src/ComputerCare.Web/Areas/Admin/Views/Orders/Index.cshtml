@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+}
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <h2><i class="fas fa-shopping-bag"></i> Quản lý đơn hàng</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <button class="btn btn-primary">
+            <i class="fas fa-download"></i> Xuất báo cáo
+        </button>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <select class="form-select">
+            <option>Tất cả trạng thái</option>
+            <option>Chờ xử lý</option>
+            <option>Đang xử lý</option>
+            <option>Đã giao</option>
+            <option>Hoàn thành</option>
+            <option>Đã hủy</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="date" class="form-control" placeholder="Từ ngày">
+    </div>
+    <div class="col-md-3">
+        <input type="date" class="form-control" placeholder="Đến ngày">
+    </div>
+    <div class="col-md-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tìm mã đơn, khách hàng...">
+            <button class="btn btn-outline-secondary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Orders Table -->
+<div class="card shadow-custom">
+    <div class="card-body">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Sản phẩm</th>
+                    <th>Tổng tiền</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>#ORD001</strong></td>
+                    <td>
+                        <div>
+                            <strong>Nguyễn Văn A</strong><br>
+                            <small class="text-muted">nguyenvana@gmail.com</small>
+                        </div>
+                    </td>
+                    <td>10/02/2024<br><small>14:30</small></td>
+                    <td>2 sản phẩm</td>
+                    <td><strong>3.690.000 ₫</strong></td>
+                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                    <td><span class="badge bg-warning">Đang xử lý</span></td>
+                    <td>
+                        <button class="btn btn-view btn-action"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-edit btn-action"><i class="fas fa-edit"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>#ORD002</strong></td>
+                    <td>
+                        <div>
+                            <strong>Trần Thị B</strong><br>
+                            <small class="text-muted">tranthib@gmail.com</small>
+                        </div>
+                    </td>
+                    <td>10/02/2024<br><small>10:15</small></td>
+                    <td>1 sản phẩm</td>
+                    <td><strong>5.290.000 ₫</strong></td>
+                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                    <td><span class="badge bg-success">Hoàn thành</span></td>
+                    <td>
+                        <button class="btn btn-view btn-action"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-edit btn-action"><i class="fas fa-edit"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>#ORD003</strong></td>
+                    <td>
+                        <div>
+                            <strong>Lê Văn C</strong><br>
+                            <small class="text-muted">levanc@gmail.com</small>
+                        </div>
+                    </td>
+                    <td>09/02/2024<br><small>16:45</small></td>
+                    <td>3 sản phẩm</td>
+                    <td><strong>8.490.000 ₫</strong></td>
+                    <td><span class="badge bg-warning">Chưa thanh toán</span></td>
+                    <td><span class="badge bg-info">Đã giao</span></td>
+                    <td>
+                        <button class="btn btn-view btn-action"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-edit btn-action"><i class="fas fa-edit"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Trước</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
