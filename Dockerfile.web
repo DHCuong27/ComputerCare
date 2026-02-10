@@ -1,0 +1,34 @@
+# Web Dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy project files
+COPY ["src/ComputerCare.Web/ComputerCare.Web.csproj", "src/ComputerCare.Web/"]
+COPY ["src/ComputerCare.Application/ComputerCare.Application.csproj", "src/ComputerCare.Application/"]
+COPY ["src/ComputerCare.Domain/ComputerCare.Domain.csproj", "src/ComputerCare.Domain/"]
+COPY ["src/ComputerCare.Infrastructure/ComputerCare.Infrastructure.csproj", "src/ComputerCare.Infrastructure/"]
+COPY ["src/ComputerCare.Shared/ComputerCare.Shared.csproj", "src/ComputerCare.Shared/"]
+COPY ["src/ComputerCare.WebSocket/ComputerCare.WebSocket.csproj", "src/ComputerCare.WebSocket/"]
+
+# Restore dependencies
+RUN dotnet restore "src/ComputerCare.Web/ComputerCare.Web.csproj"
+
+# Copy all source code
+COPY . .
+
+# Build
+WORKDIR "/src/src/ComputerCare.Web"
+RUN dotnet build "ComputerCare.Web.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "ComputerCare.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ComputerCare.Web.dll"]

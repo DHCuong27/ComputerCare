@@ -1,0 +1,34 @@
+# API Dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy project files
+COPY ["src/ComputerCare.API/ComputerCare.API.csproj", "src/ComputerCare.API/"]
+COPY ["src/ComputerCare.Application/ComputerCare.Application.csproj", "src/ComputerCare.Application/"]
+COPY ["src/ComputerCare.Domain/ComputerCare.Domain.csproj", "src/ComputerCare.Domain/"]
+COPY ["src/ComputerCare.Infrastructure/ComputerCare.Infrastructure.csproj", "src/ComputerCare.Infrastructure/"]
+COPY ["src/ComputerCare.Shared/ComputerCare.Shared.csproj", "src/ComputerCare.Shared/"]
+COPY ["src/ComputerCare.WebSocket/ComputerCare.WebSocket.csproj", "src/ComputerCare.WebSocket/"]
+
+# Restore dependencies
+RUN dotnet restore "src/ComputerCare.API/ComputerCare.API.csproj"
+
+# Copy all source code
+COPY . .
+
+# Build
+WORKDIR "/src/src/ComputerCare.API"
+RUN dotnet build "ComputerCare.API.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "ComputerCare.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ComputerCare.API.dll"]

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:14-alpine
+    container_name: computercare-db
+    environment:
+      POSTGRES_DB: ComputerCareDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Admin@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - computercare-network
+
+  # API Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: computercare-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=ComputerCareDb;Username=postgres;Password=Admin@123
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "5001:8080"
+    depends_on:
+      - db
+    networks:
+      - computercare-network
+
+  # Web Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: computercare-web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=ComputerCareDb;Username=postgres;Password=Admin@123
+      - ApiSettings__BaseUrl=http://api:8080
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "5002:8080"
+    depends_on:
+      - db
+      - api
+    networks:
+      - computercare-network
+
+volumes:
+  postgres_data:
+
+networks:
+  computercare-network:
+    driver: bridge
