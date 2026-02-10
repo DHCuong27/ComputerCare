@@ -1,0 +1,41 @@
+runtime: aspnetcore
+env: flex
+
+# Configure automatic scaling
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 3
+  cool_down_period_sec: 120
+  cpu_utilization:
+    target_utilization: 0.6
+
+# Configure resources
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+# Environment variables
+env_variables:
+  ASPNETCORE_ENVIRONMENT: "Production"
+
+# Health check
+liveness_check:
+  path: "/health"
+  check_interval_sec: 30
+  timeout_sec: 4
+  failure_threshold: 2
+  success_threshold: 2
+
+readiness_check:
+  path: "/health"
+  check_interval_sec: 5
+  timeout_sec: 4
+  failure_threshold: 2
+  success_threshold: 2
+  app_start_timeout_sec: 300
+
+# Network
+network:
+  forwarded_ports:
+    - 8080

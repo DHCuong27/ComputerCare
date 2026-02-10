@@ -1,0 +1,50 @@
+steps:
+  # Build the Docker image for API
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/computercare-api:$COMMIT_SHA', '-f', 'Dockerfile.api', '.']
+  
+  # Build the Docker image for Web
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/computercare-web:$COMMIT_SHA', '-f', 'Dockerfile.web', '.']
+  
+  # Push the API image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/computercare-api:$COMMIT_SHA']
+  
+  # Push the Web image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/computercare-web:$COMMIT_SHA']
+  
+  # Deploy API to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'computercare-api'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/computercare-api:$COMMIT_SHA'
+      - '--region'
+      - 'asia-southeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+  
+  # Deploy Web to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'computercare-web'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/computercare-web:$COMMIT_SHA'
+      - '--region'
+      - 'asia-southeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/computercare-api:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/computercare-web:$COMMIT_SHA'
